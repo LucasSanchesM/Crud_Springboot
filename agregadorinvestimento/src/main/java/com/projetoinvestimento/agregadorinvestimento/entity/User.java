@@ -35,7 +35,7 @@ public class User {
     @UpdateTimestamp
     private Instant UpdateTimeStamp;
 
-    public User(UUID id, String username, String password, String email, Instant creationTimeStamp,
+    public User(UUID id, String username, String email,  String password, Instant creationTimeStamp,
             Instant updateTimeStamp) {
         this.id = id;
         this.username = username;

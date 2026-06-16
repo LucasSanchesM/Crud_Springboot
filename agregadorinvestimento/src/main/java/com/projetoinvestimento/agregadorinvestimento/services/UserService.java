@@ -7,7 +7,8 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.projetoinvestimento.agregadorinvestimento.controller.*;
+import com.projetoinvestimento.agregadorinvestimento.controller.CreateUserDto;
+import com.projetoinvestimento.agregadorinvestimento.controller.UpdateUserDto;
 import com.projetoinvestimento.agregadorinvestimento.entity.User;
 import com.projetoinvestimento.agregadorinvestimento.repository.UserRepository;
 
@@ -32,7 +33,7 @@ public class UserService {
         Instant.now(),
         null);
 
-        var userSaved =userRepository.save(user);
+        var userSaved = userRepository.save(user);
         return userSaved.getId();
     }
 

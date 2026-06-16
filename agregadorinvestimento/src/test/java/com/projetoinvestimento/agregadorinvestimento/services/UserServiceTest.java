@@ -1,6 +1,8 @@
 package com.projetoinvestimento.agregadorinvestimento.services;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -16,8 +18,11 @@ import static org.mockito.ArgumentMatchers.any;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.projetoinvestimento.agregadorinvestimento.controller.CreateUserDto;
@@ -84,19 +89,85 @@ public class UserServiceTest {
     @Nested
     class getUserById{
         @Test
-        @DisplayName("Should return user when user exists")
-        void shouldReturnUserWhenUserExists(){
+        @DisplayName("Should return user when optional is present")
+        void shouldReturnUserWithSucessWhenOptionalIsPresent(){
             var user = new User(UUID.randomUUID(),
                                 "lucas",
                                 "lucas@email.com",
                                 "12345678",
                                 Instant.now(),
                                 null);
-            doReturn(java.util.Optional.of(user)).when(userRepository).findById(uuidArgumentCaptor.capture());
+            doReturn(Optional.of(user)).when(userRepository).findById(uuidArgumentCaptor.capture());
 
             var output = userService.getUserById(user.getId().toString());
             assertTrue(output.isPresent());
             assertEquals(user.getId(), uuidArgumentCaptor.getValue());
         }
+
+        @Test
+        @DisplayName("Should return user when optional is present")
+        void shouldReturnUserWithSucessWhenOptionalIsEmpty(){
+            var user = new User(UUID.randomUUID(),
+                                "lucas",
+                                "lucas@email.com",
+                                "12345678",
+                                Instant.now(),
+                                null);
+            doReturn(Optional.empty()).when(userRepository).findById(uuidArgumentCaptor.capture());
+
+            var output = userService.getUserById(user.getId().toString());
+            assertTrue(output.isEmpty());
+            assertEquals(user.getId(), uuidArgumentCaptor.getValue());
+        }
     }
+
+
+    @Nested
+    class listarUsuarios{
+        @Test
+        @DisplayName("Should return list of users")
+        void shouldReturnListOfUsers(){
+            var user1 = new User (UUID.randomUUID(),
+                                "Lucas",
+                                "luucaassanches@gmail.com",
+                                "12345678",
+                                Instant.now(),
+                                null);
+            var user2 = new User (UUID.randomUUID(),
+                                "Lucas",
+                                "luucaassanches@gmail.com",
+                                "12345678",
+                                Instant.now(),
+                                null);
+
+            doReturn(List.of(user1, user2)).when(userRepository).findAll();
+
+            var output = userService.listarUsuarios();
+            assertNotNull(output);
+            assertEquals(2, output.size());
+        }
+    }
+
+    @Nested
+    class deleteUserById{
+        @Test
+        @DisplayName("Should return succes when user exist and them is deleted")
+        void ShouldReturnDeleteSuccessWhenUserExist(){
+            //Arrange
+            doReturn(true).when(userRepository).existsById(uuidArgumentCaptor.capture());
+            doNothing().when(userRepository).deleteById(uuidArgumentCaptor.capture());
+            var userId = UUID.randomUUID();
+            //Act
+            userService.deleteUserById(userId.toString());
+            //Assert
+            var idList = uuidArgumentCaptor.getAllValues();
+            assertEquals(userId, idList.get(0));
+            assertEquals(userId, idList.get(1));
+
+            verify(userRepository, times(1)).existsById(idList.get(0));
+            verify(userRepository, times(1)).existsById(idList.get(1));
+        }
+    }
+
+
 }

@@ -152,7 +152,7 @@ public class UserServiceTest {
     class deleteUserById{
         @Test
         @DisplayName("Should return succes when user exist and them is deleted")
-        void ShouldReturnDeleteSuccessWhenUserExist(){
+        void shouldReturnDeleteSuccessWhenUserExist(){
             //Arrange
             doReturn(true).when(userRepository).existsById(uuidArgumentCaptor.capture());
             doNothing().when(userRepository).deleteById(uuidArgumentCaptor.capture());
@@ -167,7 +167,23 @@ public class UserServiceTest {
             verify(userRepository, times(1)).existsById(idList.get(0));
             verify(userRepository, times(1)).existsById(idList.get(1));
         }
-    }
 
+        @Test
+        @DisplayName("Should return sucess when user dont't exist")
+        void shouldReturnSucessWhenUserDontExist(){
+            //Arrange            
+            doReturn(false).when(userRepository).existsById(uuidArgumentCaptor.capture());
+            var userId = UUID.randomUUID();
+            //Act
+            userService.deleteUserById(userId.toString());
+            /*The method named getAllvalues return the values did catch by capture method, this is important for verify if the flux is doing fine*/
+            var idList = uuidArgumentCaptor.getAllValues();
+            //Asser
+            assertEquals(userId, idList.get(0));
+            
+            verify(userRepository, times(0)).deleteById(idList.get(0));
+            verify(userRepository, times(1)).existsById(idList.get(0));
+        }
+    }
 
 }

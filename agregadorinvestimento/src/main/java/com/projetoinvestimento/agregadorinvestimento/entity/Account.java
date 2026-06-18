@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +22,10 @@ public class Account {
 
     @Column(name = "account_description")
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 
     public Account() {
     }
@@ -45,6 +51,14 @@ public class Account {
         this.description = description;
     }
 
-    
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    
+    
 }

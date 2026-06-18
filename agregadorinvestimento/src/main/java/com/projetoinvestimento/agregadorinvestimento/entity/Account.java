@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +29,11 @@ public class Account {
     @JoinColumn(name = "id_user")
     private User user;
 
+    @OneToOne(mappedBy = "id_account")
+    @PrimaryKeyJoinColumn
+    private BillingAdress andress;  
+
+    
     public Account() {
     }
 

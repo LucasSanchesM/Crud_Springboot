@@ -5,6 +5,9 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,7 +22,46 @@ public class BillingAdress {
     private String street;
 
     @Column(name = "number")
-    private Integer number; 
+    private Integer number;
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name  = "id_account")
+    private Account account;
+
+    public BillingAdress() {
+    }
+
+    public BillingAdress(UUID id_account, String street, Integer number) {
+        this.id_account = id_account;
+        this.street = street;
+        this.number = number;
+    }
+
+    public UUID getId_account() {
+        return id_account;
+    }
+
+    public void setId_account(UUID id_account) {
+        this.id_account = id_account;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    } 
+
+    
 
 }

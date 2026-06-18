@@ -1,5 +1,6 @@
 package com.projetoinvestimento.agregadorinvestimento.entity;
 
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -29,11 +31,14 @@ public class Account {
     @JoinColumn(name = "id_user")
     private User user;
 
-    @OneToOne(mappedBy = "id_account")
+    @OneToOne(mappedBy = "account")
     @PrimaryKeyJoinColumn
     private BillingAdress andress;  
 
-    
+    @OneToMany(mappedBy = "account")
+    private List<AccountStock> accountStocks;
+
+
     public Account() {
     }
 

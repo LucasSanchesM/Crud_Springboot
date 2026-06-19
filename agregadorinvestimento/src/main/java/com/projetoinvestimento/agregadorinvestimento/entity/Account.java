@@ -3,6 +3,7 @@ package com.projetoinvestimento.agregadorinvestimento.entity;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,9 +32,9 @@ public class Account {
     @JoinColumn(name = "id_user")
     private User user;
 
-    @OneToOne(mappedBy = "account")
-    @PrimaryKeyJoinColumn
-    private BillingAdress andress;  
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "account")
+    @PrimaryKeyJoinColumn   
+    private BillingAdress billingAdress;  
 
     @OneToMany(mappedBy = "account")
     private List<AccountStock> accountStocks;
@@ -42,10 +43,22 @@ public class Account {
     public Account() {
     }
 
-    public Account(UUID idAccount, String description) {
+    
+
+ 
+
+    public Account(UUID idAccount, String description, User user, BillingAdress billingAdress,
+            List<AccountStock> accountStocks) {
         this.idAccount = idAccount;
         this.description = description;
+        this.user = user;
+        this.billingAdress = billingAdress;
+        this.accountStocks = accountStocks;
     }
+
+
+
+
 
     public UUID getIdAccount() {
         return idAccount;
@@ -70,7 +83,7 @@ public class Account {
     public void setUser(User user) {
         this.user = user;
     }
-
+    
     
     
 }

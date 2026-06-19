@@ -25,8 +25,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.projetoinvestimento.agregadorinvestimento.controller.CreateUserDto;
-import com.projetoinvestimento.agregadorinvestimento.controller.UpdateUserDto;
+import com.projetoinvestimento.agregadorinvestimento.controller.dtos.CreateUserDto;
+import com.projetoinvestimento.agregadorinvestimento.controller.dtos.UpdateUserDto;
 import com.projetoinvestimento.agregadorinvestimento.entity.User;
 import com.projetoinvestimento.agregadorinvestimento.repository.UserRepository;
 
@@ -195,11 +195,11 @@ public class UserServiceTest {
             //Arrange
             var userId = UUID.randomUUID();
             var userForEdit = new User(userId,
-                                       "Joao",
-                                       "joazinho@email.com",
-                                       "12345678",
-                                       Instant.now(),
-                                       null
+                                        "Joao",
+                                        "joazinho@email.com",
+                                        "12345678",
+                                        Instant.now(),
+                                        null
             );
             var userEdits = new UpdateUserDto("Geraldo", "87654321");
             var input1 = userId.toString();

@@ -10,7 +10,9 @@
             "args": "",
             "vmArgs": "-Dspring.classformat.ignore=true",
             "env": {
-                "TOKEN": "3EjZwRUj74A4KvFm4ELm2S"
+                "TOKEN": "3EjZwRUj74A4KvFm4ELm2S",
+                "MAIL": "luucaassanches@gmail.com",
+                "MAIL_PASSWORD" : "fjtpfioehidembzp"
             }
         }
     ]

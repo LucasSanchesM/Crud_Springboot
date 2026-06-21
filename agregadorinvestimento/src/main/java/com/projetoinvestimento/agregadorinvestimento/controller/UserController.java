@@ -31,6 +31,10 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+    return ResponseEntity.ok("Pong! O controller está funcionando!");
+}
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody CreateUserDto body){
         var userId = userService.createUser(body);

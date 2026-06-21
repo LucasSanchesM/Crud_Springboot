@@ -7,6 +7,8 @@ import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,6 +45,8 @@ public class User {
     Many - a terceira representa o papel da outra entidade, nesse caso varias contas
     */
     @OneToMany( mappedBy= "user")
+    /*Para enao serializar as contas do usuario quando for pego.. */
+    @JsonIgnore
     private List<Account> accounts;
 
     public User(UUID id, String username, String email,  String password, Instant creationTimeStamp,

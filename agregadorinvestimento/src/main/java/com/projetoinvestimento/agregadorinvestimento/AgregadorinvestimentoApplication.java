@@ -1,13 +1,15 @@
-package com.projetoinvestimento.agregadorinvestimento;
+		package com.projetoinvestimento.agregadorinvestimento;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+		import org.springframework.boot.SpringApplication;
+		import org.springframework.boot.autoconfigure.SpringBootApplication;
+		import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@SpringBootApplication
-public class AgregadorinvestimentoApplication {
+		@SpringBootApplication
+		@EnableFeignClients
+		public class AgregadorinvestimentoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AgregadorinvestimentoApplication.class, args);
-	}
+			public static void main(String[] args) {
+				SpringApplication.run(AgregadorinvestimentoApplication.class, args);
+			}
 
-}
+		}
